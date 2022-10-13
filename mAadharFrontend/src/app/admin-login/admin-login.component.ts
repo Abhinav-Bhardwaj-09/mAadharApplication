@@ -12,8 +12,8 @@ export class AdminLoginComponent implements OnInit {
   loginId: string = '';
   password: string = '';
 
-  correctLoginId: string = '987123';
-  correctPassword: string = 'Ab@1';
+  correctLoginId: string = '987123987123';
+  correctPassword: string = 'Abcd@1234';
 
   status: string = '';
   isDisabled = true;
@@ -71,6 +71,7 @@ export class AdminLoginComponent implements OnInit {
       this.correctLoginId == this.adminLogInForm.value.loginId &&
       this.correctPassword == this.adminLogInForm.value.password
     ) {
+      localStorage.setItem('adminId', this.correctLoginId);
       this.router.navigate(['AadharApp/admin/dashboard']);
     } else {
       this.status = 'Invalid Credentials';
@@ -82,6 +83,10 @@ export class AdminLoginComponent implements OnInit {
 
     this.loginId = '';
     this.password = '';
+  }
+
+  loginUser(): void {
+    this.router.navigate(['AadharApp/citizen/logIn']);
   }
 
   logout(): void {

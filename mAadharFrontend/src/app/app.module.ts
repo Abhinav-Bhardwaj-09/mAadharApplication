@@ -38,7 +38,7 @@ import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.componen
         component: UserSignUpComponent,
       },
       {
-        path: 'AadharApp/citizens/dasboard',
+        path: 'AadharApp/citizens/dashboard',
         pathMatch: 'full',
         component: UserDasboardComponent,
       },

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-dasboard',
@@ -10,7 +12,17 @@ import { AuthService } from '../services/auth.service';
 export class UserDasboardComponent implements OnInit {
   data = { citizenId: localStorage.getItem('citizenId') };
   user: any;
-  constructor(private router: Router, private authService: AuthService) {}
+
+  aadharApplicationForm: FormGroup = new FormGroup({});
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private userService: UserService
+  ) {}
+
+  submitted = false;
 
   ngOnInit(): void {
     if (!this.data.citizenId) {
@@ -21,7 +33,19 @@ export class UserDasboardComponent implements OnInit {
         (res) => {
           if (res) {
             this.user = res[0];
-            console.log(res);
+
+            this.aadharApplicationForm = this.formBuilder.group({
+              passportId: [
+                '',
+                [
+                  Validators.required,
+                  Validators.minLength(8),
+                  Validators.maxLength(8),
+                ],
+              ],
+            });
+
+            //console.log(res);
           }
         },
         (err) => {
@@ -29,6 +53,28 @@ export class UserDasboardComponent implements OnInit {
         }
       );
     }
+  }
+
+  applyForAadhar(): void {
+    const applicationDetails = {
+      citizenId: this.user.citizenId,
+      passportId: this.aadharApplicationForm.value.passportId,
+    };
+    this.userService.applyForAadhar(applicationDetails).subscribe(
+      (res) => {
+        if (res) {
+          console.log(res);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['AadharApp/citizens/logIn']);
   }
 }
 

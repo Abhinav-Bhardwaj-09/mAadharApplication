@@ -65,7 +65,7 @@ export class UserSignUpComponent implements OnInit {
     if (this.signUpForm.invalid) {
       return;
     }
-    console.log('On submit is working... => ', this.signUpForm.invalid);
+    //console.log('On submit is working... => ', this.signUpForm.invalid);
 
     this.signUp();
   }
@@ -81,7 +81,10 @@ export class UserSignUpComponent implements OnInit {
     this.authService.signUp(signUpDetails).subscribe(
       (res) => {
         if (res) {
-          console.log('SignedUp', res);
+          localStorage.setItem('citizenId', res.citizenId);
+
+          //console.log('SignedUp', res);
+          this.router.navigate(['AadharApp/citizens/dashboard']);
         }
       },
       (err) => {

@@ -123,5 +123,7 @@ button {
   display: block;
   width: 100%;
   padding: 1vw 0;
-  background: transparent;
+  background: white;
+  border: none;
+  font-size: 1.2vw;
 }

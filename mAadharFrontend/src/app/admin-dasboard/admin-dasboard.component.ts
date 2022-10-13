@@ -8,22 +8,28 @@ import { AdminService } from '../services/admin.service';
   styleUrls: ['./admin-dasboard.component.css'],
 })
 export class AdminDasboardComponent implements OnInit {
+  data = { adminId: localStorage.getItem('adminId') };
   newAadharApplications: any = [];
 
   constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminService.getNewAadharDetails().subscribe(
-      (res) => {
-        if (res) {
-          this.newAadharApplications = res;
-          console.log(res);
+    if (!this.data.adminId) {
+      this.router.navigate(['AadharApp/admin/logIn']);
+      return;
+    } else {
+      this.adminService.getNewAadharDetails().subscribe(
+        (res) => {
+          if (res) {
+            this.newAadharApplications = res;
+            console.log(res);
+          }
+        },
+        (err) => {
+          console.log(err);
         }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      );
+    }
   }
 
   approveApplication(applicationId: number): void {
@@ -41,5 +47,10 @@ export class AdminDasboardComponent implements OnInit {
           console.log(err);
         }
       );
+  }
+
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['AadharApp/admin/logIn']);
   }
 }

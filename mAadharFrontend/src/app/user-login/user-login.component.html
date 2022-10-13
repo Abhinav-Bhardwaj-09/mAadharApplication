@@ -9,7 +9,7 @@
         <h3>Sign in</h3>
 
         <div class="form-group">
-          <label>CitizenId</label>
+          <label>Citizen Id</label>
           <input
             type="text"
             placeholder="Enter citizenId"
@@ -33,7 +33,7 @@
           <label>Password</label>
           <input
             type="password"
-            placeholder="Enter password"
+            placeholder="Enter mobile number as password"
             class="form-control"
             formControlName="password"
             [ngClass]="{
@@ -62,7 +62,7 @@
           </div>
         </div>
         <br />
-
+        <div [className]="cssStringVar">{{ status }}</div>
         <div class="form-group">
           <a href="#" class="btn btn-sm animated-button victoria-two">
             <button>Login</button>

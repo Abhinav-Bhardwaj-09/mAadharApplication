@@ -67,11 +67,19 @@ export class UserLoginComponent implements OnInit {
         if (res) {
           console.log('logged in', res[0].citizenId);
           localStorage.setItem('citizenId', res[0].citizenId);
-          this.router.navigate(['AadharApp/citizens/dasboard']);
+          this.router.navigate(['AadharApp/citizens/dashboard']);
         }
       },
       (err) => {
+        if (err == 'Incorrect citizenId.') {
+          this.status = 'Incorrect citizenId.';
+        } else if (err == 'Incorrect password.') {
+          this.status = 'Incorrect password.';
+        } else {
+          this.status = 'Invalid credentials.';
+        }
         console.log(err);
+        this.cssStringVar = 'red size20';
       }
     );
 
