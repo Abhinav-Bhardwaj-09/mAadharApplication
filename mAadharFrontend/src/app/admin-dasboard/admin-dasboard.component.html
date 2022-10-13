@@ -1,0 +1,13 @@
+<p>admin-dasboard works!</p>
+<div style="color: white" *ngFor="let application of newAadharApplications">
+  <div>{{ application.applicationId }}</div>
+  <div>{{ application.citizenId }}</div>
+  <div>{{ application.dateOfApplication }}</div>
+  <div>{{ application.passportId }}</div>
+  <div>{{ application.currentStatus }}</div>
+  <div>{{ application.typeOfApplication }}</div>
+  <div>{{ application.issued }}</div>
+  <button (click)="approveApplication(application.applicationId)">
+    Approve
+  </button>
+</div>
